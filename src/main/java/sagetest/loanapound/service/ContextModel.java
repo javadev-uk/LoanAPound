@@ -51,6 +51,27 @@ public class ContextModel {
         return creditAgencies;
     }
 
+    /**
+     * Find the CreditAgency which is marked as default.
+     * 
+     * @throws IllegalArguentException if more than one found.
+     * @return the one marked default, or null if none found.
+     */
+    public CreditAgency getDefaultCreditAgency() {
+    		CreditAgency defaultAgency = null;
+    		for (CreditAgency creditAgency : creditAgencies) {
+			if (creditAgency.isDefaultAgency()) {
+				if (defaultAgency != null) {
+					//already found a default! 
+					throw new IllegalArgumentException("More than one default credit agency found!");
+				} else {
+					defaultAgency = creditAgency;
+				}
+			}
+		}   
+    		return defaultAgency;
+    }
+
     public void setCreditAgencies(ArrayList<CreditAgency> creditAgencies) {
         this.creditAgencies = creditAgencies;
     }

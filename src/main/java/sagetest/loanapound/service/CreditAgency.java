@@ -16,5 +16,8 @@ public interface CreditAgency {
      * @throws UnknownPersonException
      */
     int getCreditScore(Applicant applicant) throws UnknownPersonException;
+    boolean isDefaultAgency();
+	public void setDefaultAgency(boolean defaultAgency);
+
     void setKnownPeople(HashMap<Applicant, Integer> knownPeople);
 }
