@@ -4,18 +4,17 @@ import sagetest.loanapound.service.CreditAgency;
 
 public class LoanDecision {
 
-    public static final boolean ACCEPTED = true;
-    public static final boolean REJECTED = false;
+	public enum LoanStatus { ACCEPTED, REJECTED };
 
     private Applicant applicant;
     private CreditAgency creditAgency;
-    private boolean accepted;
+    private LoanStatus status;
     private int score;
 
-    public LoanDecision(Applicant applicant, CreditAgency creditAgency, boolean accepted, int score) {
+    public LoanDecision(Applicant applicant, CreditAgency creditAgency, LoanStatus status, int score) {
         this.applicant = applicant;
         this.creditAgency = creditAgency; //null if not accepted
-        this.accepted = accepted;
+        this.status = status;
         this.score = score;
     }
 
@@ -36,11 +35,11 @@ public class LoanDecision {
     }
 
     public boolean isAccepted() {
-        return accepted;
+        return status == LoanStatus.ACCEPTED;
     }
 
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
+    public void setStatus(LoanStatus status) {
+        this.status = status;
     }
 
     public int getScore() {

@@ -2,14 +2,14 @@ package sagetest.loanapound.model;
 
 public class LoanApplication {
     long id;
-    long loanTypeId;
-    long applicantId;
+    LoanType loanType;
+    Applicant applicant;
     int creditScore;
 
     enum status {inProgress, referred, rejected, accepted, notified}
 
-    long underwriterId;
-    long providerId;
-    String decision;
-    String reason;
+    Underwriter underwriter;
+    LoanProvider provider;
+    
+    LoanDecision decision;
 }
