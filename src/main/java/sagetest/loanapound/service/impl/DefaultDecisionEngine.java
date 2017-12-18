@@ -22,6 +22,10 @@ public class DefaultDecisionEngine implements DecisionEngine {
     public DefaultDecisionEngine(ContextModel model, int threshold) {
         this.model = model;
         this.creditScoreThreshold = threshold;
+
+        if (model == null) {
+        		throw new IllegalArgumentException("ContextModel cannot be null");
+        	}
     }
 
     /**
@@ -44,20 +48,22 @@ public class DefaultDecisionEngine implements DecisionEngine {
         }
 
         //make sure we have agencies to check
-        if (null == model.getCreditAgencies() || model.getCreditAgencies().isEmpty() ) {
+        if (model.getCreditAgencies() == null || model.getCreditAgencies().isEmpty() ) {
             throw new CreditAgenciesException("List of available Credit agencies is null or empty");
         }
 
         // main loop: iterate through the collection of credit agencies
         // return the first where credit score is above the threshold
         //
-        LoanDecision decision = new LoanDecision(applicant, null, LoanDecision.REJECTED, 0);
-        int score;
+        // //TODO: Refactor option: get the default credit agency instead of traversing the array. There's now a 
+        // method in the model to get the default.
+        //
+        LoanDecision decision = new LoanDecision(applicant, null, LoanDecision.LoanStatus.REJECTED, 0);
         for (CreditAgency agency : model.getCreditAgencies()) {
             try {
-                score = agency.getCreditScore(applicant);
+                int score = agency.getCreditScore(applicant);
                 if (score >= creditScoreThreshold) {
-                    decision = new LoanDecision(applicant, agency, LoanDecision.ACCEPTED, score);
+                    decision = new LoanDecision(applicant, agency, LoanDecision.LoanStatus.ACCEPTED, score);
                     break; //Winner!
                 } else {
                     decision.setCreditAgency(agency);

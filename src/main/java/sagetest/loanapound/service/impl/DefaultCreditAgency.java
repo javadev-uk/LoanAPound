@@ -11,11 +11,23 @@ import java.util.HashMap;
  */
 public class DefaultCreditAgency implements CreditAgency {
     private final String name;
+    
+    //is this agency to be used as the default, if there is more than one?
+	private boolean defaultAgency; 
 
-    private HashMap<Applicant,Integer> knownPeople = new HashMap<Applicant, Integer>();
+    public boolean isDefaultAgency() {
+		return defaultAgency;
+	}
 
-    public DefaultCreditAgency(String name) {
+	public void setDefaultAgency(boolean defaultAgency) {
+		this.defaultAgency = defaultAgency;
+	}
+
+	private HashMap<Applicant,Integer> knownPeople = new HashMap<Applicant, Integer>();
+
+    public DefaultCreditAgency(String name, boolean isDefault) {
         this.name = name;
+        this.defaultAgency = isDefault;
     }
 
     /**
