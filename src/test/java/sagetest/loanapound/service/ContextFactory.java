@@ -40,8 +40,8 @@ class ContextFactory {
         knownPeople.put(applicantGraham, 900);
 
         //build some credit agencies
-        DefaultCreditAgency experian = new DefaultCreditAgency("Experian");
-        DefaultCreditAgency equifax = new DefaultCreditAgency("Equifax");
+        DefaultCreditAgency experian = new DefaultCreditAgency("Experian", true); //default
+        DefaultCreditAgency equifax = new DefaultCreditAgency("Equifax", false);
         experian.setKnownPeople(knownPeople);
         equifax.setKnownPeople(knownPeople);
 
